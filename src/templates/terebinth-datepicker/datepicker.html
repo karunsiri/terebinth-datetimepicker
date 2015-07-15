@@ -1,0 +1,20 @@
+<div class='input-group datepicker-wrapper'>
+  <span class="input-group-addon datepickerbutton">
+    <span class="glyphicon glyphicon-calendar"></span>
+  </span>
+
+  <input type="text"
+    class="form-control datepicker-input"
+    ng-model="date"
+    ng-value="date"
+    ng-required="required"
+    ng-disabled="disabled"
+    live-model
+    >
+
+  <span class="input-group-btn" ng-show="showClearButton">
+    <button class="btn btn-default" type="button" ng-click="clearValue()" ng-disabled="disabled">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </span>
+ </div>

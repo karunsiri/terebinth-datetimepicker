@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/karunsiri/terebinth-datetimepicker#readme",
   "devDependencies": {
+    "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-coffee": "^2.3.1",
     "gulp-concat": "^2.6.0",
