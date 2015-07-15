@@ -25,7 +25,7 @@ gulp.task 'coffee', ->
 
 gulp.task 'templatecache', ->
   gulp.src paths.templates
-    .pipe templateCache(module: 'terebinth.datetimepicker')
+    .pipe templateCache(module: 'terebinth.datetimepicker', transformUrl: (url) -> "/#{url}")
     .pipe rename 'terebinth-datetimepicker-template.js'
     .pipe gulp.dest './src/build/'
 
@@ -45,4 +45,4 @@ gulp.task 'build', ['concat'], ->
 gulp.task 'watch', ->
   watch paths.coffee, -> gulp.start 'build'
 
-gulp.task 'default', ['watch']
+gulp.task 'default', ['watch', 'build']

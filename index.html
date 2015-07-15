@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="TestApp">
   <head>
     <title>AngularJS bootstrap3 datetime picker</title>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="dist/terebinth-datetimepicker.js"></script>
+
+    <link rel="stylesheet" media="all" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" media="all" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
   </head>
 
   <body>
+    <terebinth-datepicker ng-model="date" format="YYYY-MM-DD" required="true" disabled="false" default-to-current="true">
+    </terebinth-datepicker>
 
+    <hr />
+
+    Date: {{ date }}
+
+    <script>
+      angular.module('TestApp', ['terebinth.datetimepicker']);
+    </script>
   </body>
 </html>
