@@ -1,5 +1,5 @@
 {
-  "name": "terebinth-datepicker",
+  "name": "terebinth-datetimepicker",
   "version": "0.1.0",
   "description": "AngularJS wrapper for Eonasdan's Bootstrap3 Datetime picker",
   "keywords": [
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "angular": "~1.4.3"
   }
 }
