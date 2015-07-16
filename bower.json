@@ -4,7 +4,7 @@
   "description": "AngularJS wrapper for Eonasdan's Bootstrap3 Datetime picker",
   "main": [
     "dist/terebinth-datetimepicker.js",
-    "dist/terebinth-datetimepicker.min.js",
+    "dist/terebinth-datetimepicker.min.js"
   ],
   "keywords": [
     "bootstrap3",
