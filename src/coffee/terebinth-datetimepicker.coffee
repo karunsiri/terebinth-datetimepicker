@@ -43,6 +43,7 @@ directive = ($parse, $filter) ->
       scope.showTodayButton = $parse(attrs.showTodayButton)(scope)
     else
       scope.showTodayButton = true
+
     scope.position = 'bottom' unless angular.isDefined(attrs.position)
 
   linkFn = (scope, element, attrs, ngModelCtrl) ->
@@ -87,4 +88,39 @@ directive = ($parse, $filter) ->
   }
 
 directive.$inject = ['$parse', '$filter']
-angular.module('terebinth.datetimepicker').directive 'terebinthDatepicker', directive
+angular.module('terebinth.datetimepicker').directive 'terebinthDatetimepicker', directive
+
+# Make datetime picker input live reload
+liveModel = ($parse, $interval) ->
+  linkFn = (scope, element, attrs) ->
+    if angular.isDefined(attrs.updateInterval)
+      scope.updateInterval = $parse(attrs.updateInterval)(scope)
+    else
+      scope.updateInterval = 500
+
+    attribute = attrs.ngModel || element.attr('name')
+
+    if angular.isDefined(attrs.ngValue)
+      value = $parse(attrs.ngValue)(scope)
+    else
+      value = $(element).val()
+
+    $parse(attribute).assign(scope, value)
+
+    watcher = $interval(
+      ->
+        value = $(element).val() || ''
+        $parse(attribute).assign(scope, value)
+      ,
+      scope.updateInterval
+    )
+
+    element.on '$destroy', ->
+      $interval.cancel(watcher)
+
+  return {
+    restrict: 'A',
+    link: linkFn
+  }
+liveModel.$inject = ['$parse', '$interval']
+angular.module('terebinth.datetimepicker').directive 'terebinthDatetimepickerLiveModel', liveModel

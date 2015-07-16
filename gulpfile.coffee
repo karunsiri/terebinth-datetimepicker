@@ -44,5 +44,6 @@ gulp.task 'build', ['concat'], ->
 
 gulp.task 'watch', ->
   watch paths.coffee, -> gulp.start 'build'
+  watch paths.templates, -> gulp.start 'build'
 
 gulp.task 'default', ['watch', 'build']

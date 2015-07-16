@@ -14,12 +14,41 @@
   </head>
 
   <body>
-    <terebinth-datepicker ng-model="date" format="YYYY-MM-DD" required="true" disabled="false" default-to-current="true">
-    </terebinth-datepicker>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <terebinth-datetimepicker
+            ng-model="date"
+            format="YYYY-MM-DD"
+            required="true"
+            disabled="false"
+            >
+          </terebinth-datetimepicker>
+        </div>
 
-    <hr />
+        <div class="col-sm-6">
+          <terebinth-datetimepicker
+            ng-model="date2"
+            format="MMMM Do YYYY, h:mm:ss a"
+            required="true"
+            disabled="false"
+            show-clear-button="true"
+            >
+          </terebinth-datetimepicker>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+      </div>
 
-    Date: {{ date }}
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="well">
+            Date: {{ date }}<br/>
+            Date2 {{ date2 }}
+          </div>
+        </div>
+      </div>
+
+    </div>
 
     <script>
       angular.module('TestApp', ['terebinth.datetimepicker']);
