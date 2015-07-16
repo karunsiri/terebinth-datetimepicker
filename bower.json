@@ -2,6 +2,10 @@
   "name": "terebinth-datetimepicker",
   "version": "0.1.0",
   "description": "AngularJS wrapper for Eonasdan's Bootstrap3 Datetime picker",
+  "main": [
+    "dist/terebinth-datetimepicker.js",
+    "dist/terebinth-datetimepicker.min.js",
+  ],
   "keywords": [
     "bootstrap3",
     "datetime",
