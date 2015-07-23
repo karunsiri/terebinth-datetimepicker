@@ -24,7 +24,8 @@
         }
       });
       target.on('dp.change', function(e) {
-        return scope.date = target.find('.datepicker-input').val();
+        scope.date = target.find('.datepicker-input').val();
+        return ngModelCtrl.$setViewValue(scope.date);
       });
       target.on('click', '.datepicker-input', function(e) {
         return showDatePicker(scope);
@@ -111,4 +112,4 @@
 
 }).call(this);
 
-angular.module("terebinth.datetimepicker").run(["$templateCache", function($templateCache) {$templateCache.put("/terebinth-datetimepicker/datepicker.html","<div class=\'input-group datepicker-wrapper\'>\n  <span class=\"input-group-addon datepickerbutton\">\n    <span class=\"glyphicon glyphicon-calendar\"></span>\n  </span>\n\n  <input type=\"text\"\n    class=\"form-control datepicker-input\"\n    ng-model=\"date\"\n    ng-required=\"required\"\n    ng-disabled=\"disabled\"\n    >\n\n  <span class=\"input-group-btn\" ng-show=\"showClearButton\">\n    <button class=\"btn btn-default\" type=\"button\" ng-click=\"clearValue()\" ng-disabled=\"disabled\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n    </button>\n  </span>\n </div>\n");}]);
+angular.module("terebinth.datetimepicker").run(["$templateCache", function($templateCache) {$templateCache.put("/terebinth-datetimepicker/datepicker.html","<div class=\'input-group datepicker-wrapper\'>\n  <span class=\"input-group-addon datepickerbutton\">\n    <span class=\"glyphicon glyphicon-calendar\"></span>\n  </span>\n\n  <input type=\"text\"\n    class=\"form-control datepicker-input\"\n    ng-model=\"date\"\n    ng-required=\"required\"\n    ng-disabled=\"disabled\"\n    ng-value=\"date\"\n    >\n\n  <span class=\"input-group-btn\" ng-show=\"showClearButton\">\n    <button class=\"btn btn-default\" type=\"button\" ng-click=\"clearValue()\" ng-disabled=\"disabled\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n    </button>\n  </span>\n </div>\n");}]);

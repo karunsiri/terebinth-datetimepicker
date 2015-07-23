@@ -23,6 +23,7 @@ directive = ($parse, $filter) ->
     # Update model everytime the input changed
     target.on 'dp.change', (e) ->
       scope.date = target.find('.datepicker-input').val()
+      ngModelCtrl.$setViewValue(scope.date)
 
     target.on 'click', '.datepicker-input', (e) ->
       showDatePicker(scope)
