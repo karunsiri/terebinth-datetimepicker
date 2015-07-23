@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" ng-controller="DateController">
       <div class="row">
         <div class="col-sm-6">
           <terebinth-datetimepicker
@@ -22,6 +22,8 @@
             format="YYYY-MM-DD"
             required="true"
             disabled="false"
+            default-to-current="true"
+            show-clear-button="true"
             >
           </terebinth-datetimepicker>
         </div>
@@ -29,7 +31,7 @@
         <div class="col-sm-6">
           <terebinth-datetimepicker
             ng-model="date2"
-            format="MMMM Do YYYY, h:mm:ss a"
+            format="YYYY-MM-DD HH:mm:ss"
             required="true"
             disabled="false"
             show-clear-button="true"
@@ -40,18 +42,43 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12">
-          <div class="well">
-            Date: {{ date }}<br/>
-            Date2 {{ date2 }}
-          </div>
+        <div class="col-sm-6">
+          <terebinth-datetimepicker
+            ng-model="date3"
+            format="YYYY-MM-DD"
+            required="true"
+            disabled="false"
+            show-clear-button="true"
+            default-to-current="true"
+            position="auto"
+            >
+          </terebinth-datetimepicker>
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="well">
+            Date: <input type="text" ng-model="date"><br/>
+            Date2 {{ date2 }}<br/>
+            Date3 {{ date3 }}<br/>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-      angular.module('TestApp', ['terebinth.datetimepicker']);
+      angular.module("TestApp", ["terebinth.datetimepicker"]);
+
+      var dateCtrl = function($scope) {
+        $scope.date = '1990-12-17';
+        $scope.date2 = '1990-12-17 07:58:00';
+        $scope.date3 = '';
+      };
+
+      dateCtrl.$inject = ['$scope'];
+
+      angular.module("TestApp").controller("DateController", dateCtrl);
     </script>
   </body>
 </html>

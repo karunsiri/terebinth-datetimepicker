@@ -1,6 +1,6 @@
 {
   "name": "terebinth-datetimepicker",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "AngularJS wrapper for Eonasdan's Bootstrap3 Datetime picker",
   "main": [
     "dist/terebinth-datetimepicker.js",
@@ -9,7 +9,8 @@
   "keywords": [
     "bootstrap3",
     "datetime",
-    "picker"
+    "picker",
+    "datetimepicker"
   ],
   "authors": [
     "Karun Siritheerathamrong <karuns@swiftlet.co.th>"
@@ -20,7 +21,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "src"
   ],
   "dependencies": {
     "eonasdan-bootstrap-datetimepicker": "~4.14.30",

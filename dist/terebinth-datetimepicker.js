@@ -1,5 +1,5 @@
 (function() {
-  var directive, liveModel;
+  var directive;
 
   angular.module('terebinth.datetimepicker', []);
 
@@ -23,6 +23,9 @@
           date: 'fa fa-calendar'
         }
       });
+      target.on('dp.change', function(e) {
+        return scope.date = target.find('.datepicker-input').val();
+      });
       target.on('click', '.datepicker-input', function(e) {
         return showDatePicker(scope);
       });
@@ -39,7 +42,8 @@
       var target;
       target = getTarget(element);
       target.off('click', '.datepicker-input');
-      return target.off('keydown input paste mousedown', '.datepicker-input');
+      target.off('keydown input paste mousedown', '.datepicker-input');
+      return target.off('dp.change');
     };
     init = function(scope, element, attrs, ngModelCtrl) {
       if (!angular.isDefined(attrs.format)) {
@@ -54,28 +58,25 @@
         scope.showTodayButton = true;
       }
       if (!angular.isDefined(attrs.position)) {
-        return scope.position = 'bottom';
+        return scope.position = 'auto';
       }
     };
     linkFn = function(scope, element, attrs, ngModelCtrl) {
-      var textWatcher;
+      var current, textWatcher;
       init(scope, element, attrs, ngModelCtrl);
-      enableDatepicker(scope, element, attrs.ngModelCtrl);
-      ngModelCtrl.$render = function() {
-        return scope.date = ngModelCtrl.$viewValue;
-      };
-      textWatcher = scope.$watch('date', function(newVal) {
-        var current;
-        if (!newVal || (newVal == null) || !newVal.length) {
-          if (scope.defaultToCurrent) {
-            current = moment().format(scope.format);
-            return getTarget(element).find('.datepicker-input').val(current);
-          }
+      enableDatepicker(scope, element, attrs, ngModelCtrl);
+      if (scope.defaultToCurrent) {
+        if (!scope.date || (scope.date == null) || !scope.date.length) {
+          current = moment().format(scope.format);
+          scope.date = current;
         }
+      }
+      textWatcher = scope.$watch('date', function(newVal) {
+        return ngModelCtrl.$setViewValue(newVal);
       });
       return element.on('$destroy', function() {
-        turnOffEventListeners(element);
-        return textWatcher();
+        textWatcher();
+        return turnOffEventListeners(element);
       });
     };
     return {
@@ -108,40 +109,6 @@
 
   angular.module('terebinth.datetimepicker').directive('terebinthDatetimepicker', directive);
 
-  liveModel = function($parse, $interval) {
-    var linkFn;
-    linkFn = function(scope, element, attrs) {
-      var attribute, value, watcher;
-      if (angular.isDefined(attrs.updateInterval)) {
-        scope.updateInterval = $parse(attrs.updateInterval)(scope);
-      } else {
-        scope.updateInterval = 500;
-      }
-      attribute = attrs.ngModel || element.attr('name');
-      if (angular.isDefined(attrs.ngValue)) {
-        value = $parse(attrs.ngValue)(scope);
-      } else {
-        value = $(element).val();
-      }
-      $parse(attribute).assign(scope, value);
-      watcher = $interval(function() {
-        value = $(element).val() || '';
-        return $parse(attribute).assign(scope, value);
-      }, scope.updateInterval);
-      return element.on('$destroy', function() {
-        return $interval.cancel(watcher);
-      });
-    };
-    return {
-      restrict: 'A',
-      link: linkFn
-    };
-  };
-
-  liveModel.$inject = ['$parse', '$interval'];
-
-  angular.module('terebinth.datetimepicker').directive('terebinthDatetimepickerLiveModel', liveModel);
-
 }).call(this);
 
-angular.module("terebinth.datetimepicker").run(["$templateCache", function($templateCache) {$templateCache.put("/terebinth-datetimepicker/datepicker.html","<div class=\'input-group datepicker-wrapper\'>\n  <span class=\"input-group-addon datepickerbutton\">\n    <span class=\"glyphicon glyphicon-calendar\"></span>\n  </span>\n\n  <input type=\"text\"\n    class=\"form-control datepicker-input\"\n    ng-model=\"date\"\n    ng-required=\"required\"\n    ng-disabled=\"disabled\"\n    terebinth-datetimepicker-live-model\n    >\n\n  <span class=\"input-group-btn\" ng-show=\"showClearButton\">\n    <button class=\"btn btn-default\" type=\"button\" ng-click=\"clearValue()\" ng-disabled=\"disabled\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n    </button>\n  </span>\n </div>\n");}]);
+angular.module("terebinth.datetimepicker").run(["$templateCache", function($templateCache) {$templateCache.put("/terebinth-datetimepicker/datepicker.html","<div class=\'input-group datepicker-wrapper\'>\n  <span class=\"input-group-addon datepickerbutton\">\n    <span class=\"glyphicon glyphicon-calendar\"></span>\n  </span>\n\n  <input type=\"text\"\n    class=\"form-control datepicker-input\"\n    ng-model=\"date\"\n    ng-required=\"required\"\n    ng-disabled=\"disabled\"\n    >\n\n  <span class=\"input-group-btn\" ng-show=\"showClearButton\">\n    <button class=\"btn btn-default\" type=\"button\" ng-click=\"clearValue()\" ng-disabled=\"disabled\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n    </button>\n  </span>\n </div>\n");}]);
